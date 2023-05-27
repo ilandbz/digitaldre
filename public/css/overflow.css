@@ -1,0 +1,23 @@
+.style-overflow {
+    overflow-y: scroll;
+}
+.style-overflow::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+.style-overflow::-webkit-scrollbar:vertical {
+    width:13px;
+}
+.style-overflow::-webkit-scrollbar-button:increment,.style-overflow::-webkit-scrollbar-button {
+    display: none;
+} 
+.style-overflow::-webkit-scrollbar-thumb {
+    background-color: #cacad0;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+.style-overflow::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+.style-overflow::-webkit-scrollbar-thumb:hover {
+    background-color: #b8b8b9;
+}
