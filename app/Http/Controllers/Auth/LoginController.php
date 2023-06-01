@@ -7,7 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Persona;
 class LoginController extends Controller
 {
     /*
@@ -33,7 +35,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
+        
         $user = User::where('username', $request->username)->first();
         if ( $user && ($user->l_activo != 'S') ) {
             return $this->sendLockedAccountResponse($request);
@@ -63,7 +65,20 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+    public function loginpublico(Request $request){
+        $credentials = $request->only('c_dni', 'password');
 
+        $user = Persona::where('c_dni', $credentials['c_dni'])->first();
+    
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+
+            session(['c_dni' => $user->c_dni]);
+
+            return redirect('homepublico');
+        } else {
+            return redirect('login')->with('error', 'Credenciales inválidas');
+        }
+    }
     protected function sendLockedAccountResponse(Request $request)
     {
         return redirect('login')

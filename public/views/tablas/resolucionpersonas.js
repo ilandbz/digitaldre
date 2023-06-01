@@ -9,7 +9,7 @@ new Vue({
         },
         send: '',
         page: 1,
-
+        estado_pagina : estado,
         listRequest: [],
         pagination: {
             'total': 0,
@@ -143,7 +143,12 @@ new Vue({
         Buscar(page) {
             this.Load('my_table', 'on', 'Cargando Datos ...'); 
 
-            urlBuscar = 'resolucionpersonas/buscar?page=' + page;
+            if(this.estado_pagina=='publico'){
+                urlBuscar = 'resolucionespublico/buscar?page=' + page;
+            }else{
+                urlBuscar = 'resolucionpersonas/buscar?page=' + page;
+            }
+            
             axios.post(urlBuscar, {
                 filter: this.search.filter,
                 search: this.search.datos,

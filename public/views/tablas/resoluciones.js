@@ -54,9 +54,9 @@ new Vue({
             'visto': null,
             'estado': null,
         },
-    resoluciontipos: my_resoluciontipos,
-    dependencias: my_dependencias,
-    personas: my_personas,
+        resoluciontipos: my_resoluciontipos,
+        dependencias: my_dependencias,
+        personas: my_personas,
     },
     created() {
         var self = this;
@@ -158,8 +158,8 @@ new Vue({
         Buscar(page) 
         {
             this.Load('my_table', 'on', 'Cargando Datos ...'); 
-
             urlBuscar = 'resoluciones/buscar?page=' + page;
+            
             axios.post(urlBuscar, {
                 filter: this.search.filter,
                 search: this.search.datos,

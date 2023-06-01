@@ -11,6 +11,10 @@ class Persona extends Model
 
     protected $table = 'inv_personas';
 
+    protected $fillable = [
+        'id','c_dni', 'x_nombre', 'x_telefono', 'x_email', 'x_tipo' ,'l_activo', 'user_id', 'password'
+    ];
+
     protected $hidden = [
         'created_at', 'updated_at', 'user_id',
     ];

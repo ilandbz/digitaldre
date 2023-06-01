@@ -358,6 +358,7 @@
         }
     var my_resoluciones={!!json_encode($resoluciones)!!};
     var my_personas={!!json_encode($personas)!!};
+    var estado='intranet';
 </script>
     <script src="{{asset('views/tablas/resolucionpersonas.js')}}"></script>
 @endsection

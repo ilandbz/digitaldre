@@ -306,7 +306,7 @@
                         <i class="fas fa-user-circle" style="font-size: 40px;"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header disabled perfil-name">{{Auth::user()->x_nombres}}</span>
+                        <span class="dropdown-item dropdown-header disabled perfil-name">{{optional(Auth::user())->x_nombres ?? Session::get('c_dni')}}</span>
                         <div class="dropdown-divider"></div>
                         <a href="{{route('home')}}" class="dropdown-item">
                             <i class="fas fa-user-cog mr-2"></i> Datos de Perfil
@@ -351,7 +351,12 @@
                 </div>
                 
                 <!-- Sidebar Menu -->
-                @include('layouts.menu')
+                @if (Session::has('c_dni'))
+                    @include('layouts.menupublico')
+                @else
+                    @include('layouts.menu')
+                @endif
+                
             </div>
         </aside>
 

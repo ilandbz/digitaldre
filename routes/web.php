@@ -18,13 +18,24 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
         //$user = DB::connection('sybase')->table('historia')->get();
         return redirect('login');
     });
+    Route::get('homepublico', [App\Http\Controllers\HomePublicoController::class, 'index'])->name('homepublico'); 
+    Route::get('logoutpublico', [App\Http\Controllers\HomePublicoController::class, 'logout'])->name('logoutpublico');
+    Route::get('resolucionesp', [App\Http\Controllers\HomePublicoController::class, 'resoluciones'])->name('tablas.resolucionesp');
+    Route::get('contratosp', [App\Http\Controllers\HomePublicoController::class, 'contratos'])->name('tablas.contratos');
+    Route::post('resolucionespublico/buscar', [App\Http\Controllers\HomePublicoController::class, 'buscarresoluciones']);
 
+    
+    
     Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::post('loginpublico', [App\Http\Controllers\Auth\LoginController::class, 'loginpublico'])->name('loginpublico');    
     Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::get('registrar', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('registered');
+    Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('registerpublico');
     //Auth::routes();
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+   
     Route::post('/home/perfil', [App\Http\Controllers\HomeController::class, 'perfil']);
 
     Route::get('/buscar', [App\Http\Controllers\GrupoController::class, 'index'])->name('buscar');

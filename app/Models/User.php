@@ -14,8 +14,10 @@ class User extends Authenticatable
     protected $table = 'inv_users';
 
     protected $fillable = [
-        'id','nombres', 'dni', 'email', 'username', 'password', 'tipo', 'rol_id','activo',
+        'sede_id','dependencia_id', 'rol_id', 'dni', 'x_email', 'x_nombres', 'c_dni' ,'username', 'password', 'x_telefono',
     ];
+
+
 
     protected $hidden = [
         'password', 'created_at', 'updated_at',

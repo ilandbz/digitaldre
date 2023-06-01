@@ -46,7 +46,6 @@ class ResolucionController extends Controller
     {   
         $usuario = User::find(Auth::user()->id);
         $resoluciones = Resolucion::where('l_activo', 'S')->where('dependencia_id', $usuario->dependencia_id);
-        
 
         if ($request->search) {
             $search = $request->search;

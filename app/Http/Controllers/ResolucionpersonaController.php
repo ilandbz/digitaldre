@@ -41,7 +41,7 @@ class ResolucionpersonaController extends Controller
 
     public function buscar(Request $request)
     {   
-            $resolucionpersonas = Resolucionpersona::where('l_activo', 'S');
+        $resolucionpersonas = Resolucionpersona::where('l_activo', 'S');
 
         if ($request->search) {
             $search = $request->search;

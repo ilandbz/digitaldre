@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Persona;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +42,10 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function index(){
+        $this->middleware('guest');
+        return view('auth.register');
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -62,12 +67,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $this->validate($request, [
+            'c_dni'     => 'unique:inv_personas,c_dni',
+            'x_nombre'  => 'unique:inv_personas,x_nombre|required|max:100',
+            'x_email'   => 'unique:inv_personas,x_email|email',
+            'password'  => 'required|min:5|confirmed'
+        ], [
+            'required' => 'El campo es requerido.',
+            'unique' => 'Ya existe el registro con el mismo nombre de campo',
+            'confirmed' => 'La clave no coincide'
         ]);
+
+
+        Persona::create([
+            'c_dni' => $request->c_dni, 
+            'x_nombre' => $request->x_nombre,
+            'x_telefono' => $request->x_telefono,
+            'x_email' => $request->x_email,
+            'x_tipo' => 'VISITANTE',
+            'l_activo' => 'S',
+            'user_id' => 1,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect('login')->with('success', '¡Registro creado correctamente!');
+
     }
 }
